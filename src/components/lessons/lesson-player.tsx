@@ -41,6 +41,10 @@ export function LessonPlayer({
     leveledUp: boolean;
     newLevel?: number;
     badges: { name: string; emoji: string }[];
+    moduleCompleted?: boolean;
+    moduleName?: string;
+    currentStreak?: number;
+    currentLevel?: number;
   } | null>(null);
   const [showCelebration, setShowCelebration] = useState(false);
 
@@ -94,6 +98,10 @@ export function LessonPlayer({
           leveledUp={xpResult.leveledUp}
           newLevel={xpResult.newLevel}
           badges={xpResult.badges}
+          moduleName={xpResult.moduleName}
+          moduleCompleted={xpResult.moduleCompleted}
+          currentStreak={xpResult.currentStreak}
+          currentLevel={xpResult.currentLevel}
           onDone={() => {
             setShowCelebration(false);
           }}

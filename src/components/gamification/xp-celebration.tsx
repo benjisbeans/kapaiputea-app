@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Zap, ArrowUp, Medal, X } from "lucide-react";
 import { LEVEL_NAMES } from "@/lib/constants";
+import { ShareButton } from "@/components/sharing/share-button";
 
 interface XpCelebrationProps {
   xpEarned: number;
@@ -11,6 +12,10 @@ interface XpCelebrationProps {
   newLevel?: number;
   badges: { name: string; emoji: string }[];
   onDone: () => void;
+  moduleName?: string;
+  moduleCompleted?: boolean;
+  currentStreak?: number;
+  currentLevel?: number;
 }
 
 export function XpCelebration({
@@ -20,6 +25,10 @@ export function XpCelebration({
   newLevel,
   badges,
   onDone,
+  moduleName,
+  moduleCompleted,
+  currentStreak,
+  currentLevel,
 }: XpCelebrationProps) {
   return (
     <motion.div
@@ -159,6 +168,24 @@ export function XpCelebration({
                 +{badges.length - 3} more badge{badges.length - 3 > 1 ? "s" : ""} earned!
               </p>
             )}
+          </motion.div>
+        )}
+
+        {/* Share */}
+        {moduleCompleted && moduleName && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6 }}
+            className="mt-4 flex justify-center"
+          >
+            <ShareButton
+              shareData={{
+                title: `I completed ${moduleName} on Ka Pai Pūtea!`,
+                text: `Just finished ${moduleName} and earned ${xpEarned} XP! 💰`,
+                url: `/share?type=module&name=${encodeURIComponent(moduleName)}&xp=${xpEarned}&streak=${currentStreak || 0}&level=${currentLevel || 1}&emoji=🎉`,
+              }}
+            />
           </motion.div>
         )}
 

@@ -3,6 +3,7 @@ import type { Badge, Profile } from "@/types/database";
 type BadgeCriteria = {
   type: string;
   threshold?: number;
+  count?: number;
   module_slug?: string;
   key?: string;
 };
@@ -13,21 +14,25 @@ type EvalContext = {
   justCompletedModuleSlug?: string;
 };
 
+function getThreshold(criteria: BadgeCriteria): number {
+  return criteria.threshold ?? criteria.count ?? 0;
+}
+
 export function evaluateBadge(badge: Badge, ctx: EvalContext): boolean {
   const criteria = badge.criteria as BadgeCriteria;
 
   switch (criteria.type) {
     case "lessons_completed":
-      return ctx.profile.lessons_completed >= (criteria.threshold ?? 0);
+      return ctx.profile.lessons_completed >= getThreshold(criteria);
 
     case "modules_completed":
-      return ctx.profile.modules_completed >= (criteria.threshold ?? 0);
+      return ctx.profile.modules_completed >= getThreshold(criteria);
 
     case "streak_days":
-      return ctx.profile.current_streak >= (criteria.threshold ?? 0);
+      return ctx.profile.current_streak >= getThreshold(criteria);
 
     case "total_xp":
-      return ctx.profile.total_xp >= (criteria.threshold ?? 0);
+      return ctx.profile.total_xp >= getThreshold(criteria);
 
     case "module_completed":
       return ctx.justCompletedModuleSlug === criteria.module_slug;
@@ -36,7 +41,7 @@ export function evaluateBadge(badge: Badge, ctx: EvalContext): boolean {
       return ctx.profile.onboarding_completed;
 
     case "lessons_in_day":
-      return (ctx.lessonsCompletedToday ?? 0) >= (criteria.threshold ?? 0);
+      return (ctx.lessonsCompletedToday ?? 0) >= getThreshold(criteria);
 
     case "all_interactions_in_lesson":
       // This is checked at lesson completion time

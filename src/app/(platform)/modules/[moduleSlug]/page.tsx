@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Clock, Zap, Check, Lock, Play } from "lucide-react";
+import { ShareButton } from "@/components/sharing/share-button";
 
 interface Props {
   params: Promise<{ moduleSlug: string }>;
@@ -113,6 +114,18 @@ export default async function ModuleDetailPage({ params }: Props) {
               style={{ width: `${progressPct}%` }}
             />
           </div>
+          {progressPct === 100 && (
+            <div className="mt-3">
+              <ShareButton
+                shareData={{
+                  title: `I completed ${module.title} on Ka Pai Pūtea!`,
+                  text: `Just finished the ${module.title} module and earned ${module.total_xp} XP! 💰`,
+                  url: `/share?type=module&name=${encodeURIComponent(module.title)}&xp=${module.total_xp}&emoji=${encodeURIComponent(module.icon_emoji)}`,
+                }}
+                variant="inline"
+              />
+            </div>
+          )}
         </div>
       </div>
 

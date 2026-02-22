@@ -236,6 +236,9 @@ export async function POST(request: Request, { params }: Props) {
       newLevel: leveledUp ? newLevel : undefined,
       badges: newBadges.map((b) => ({ name: b.name, emoji: b.emoji })),
       moduleCompleted,
+      moduleName: lesson.module?.title,
+      currentStreak: newStreak,
+      currentLevel: newLevel,
     });
   } catch (error) {
     console.error("Lesson complete error:", error);

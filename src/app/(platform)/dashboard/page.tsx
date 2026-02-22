@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { getLevelProgress, getXpForNextLevel } from "@/lib/constants";
 import { DashboardView } from "@/components/dashboard/dashboard-view";
+import { getStreakCalendarData } from "@/lib/streaks/get-streak-data";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -49,6 +50,11 @@ export default async function DashboardPage() {
     .order("earned_at", { ascending: false })
     .limit(3);
 
+  const { streakDays, hasActivityToday } = await getStreakCalendarData(
+    supabase,
+    user.id
+  );
+
   return (
     <DashboardView
       displayName={profile.display_name}
@@ -89,6 +95,8 @@ export default async function DashboardPage() {
           ? { emoji: ub.badge.emoji, name: ub.badge.name }
           : null,
       }))}
+      streakDays={streakDays}
+      hasActivityToday={hasActivityToday}
     />
   );
 }

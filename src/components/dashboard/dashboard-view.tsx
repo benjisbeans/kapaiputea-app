@@ -12,6 +12,9 @@ import {
   Medal,
 } from "lucide-react";
 import { LEVEL_NAMES } from "@/lib/constants";
+import { StreakCalendar } from "./streak-calendar";
+import { StreakMilestone } from "@/components/gamification/streak-milestone";
+import type { StreakDay } from "@/lib/streaks/get-streak-data";
 
 /* ── animation ── */
 const stagger = {
@@ -82,6 +85,8 @@ interface Props {
   isResuming: boolean;
   modules: ModuleData[];
   recentBadges: BadgeData[];
+  streakDays: StreakDay[];
+  hasActivityToday: boolean;
 }
 
 const CARD = "rounded-2xl border border-gray-200 bg-white";
@@ -98,6 +103,8 @@ export function DashboardView({
   isResuming,
   modules,
   recentBadges,
+  streakDays,
+  hasActivityToday,
 }: Props) {
   const xp = useCounter(totalXp);
   const streak = useCounter(currentStreak, 800);
@@ -165,6 +172,15 @@ export function DashboardView({
             <p className="text-xs text-gray-500">{s.label}</p>
           </div>
         ))}
+      </motion.div>
+
+      {/* streak calendar */}
+      <motion.div variants={fadeUp}>
+        <StreakCalendar
+          streakDays={streakDays}
+          currentStreak={currentStreak}
+          hasActivityToday={hasActivityToday}
+        />
       </motion.div>
 
       {/* level progress */}
@@ -293,6 +309,8 @@ export function DashboardView({
           })}
         </div>
       </motion.div>
+
+      <StreakMilestone currentStreak={currentStreak} />
     </motion.div>
   );
 }
