@@ -59,7 +59,7 @@ export default async function AchievementsPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+        <h1 className="text-3xl font-black tracking-tight text-gray-900">
           Achievements
         </h1>
         <p className="mt-1 text-gray-500">
@@ -75,7 +75,7 @@ export default async function AchievementsPage() {
 
         return (
           <div key={cat}>
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-400">
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-gray-400">
               {categoryLabels[cat]}
             </h2>
             <div className="grid gap-2 sm:grid-cols-2">
@@ -85,7 +85,7 @@ export default async function AchievementsPage() {
                 return (
                   <div
                     key={badge.id}
-                    className={`flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3.5 ${
+                    className={`flex items-center gap-3 rounded-2xl border border-gray-200 bg-white p-3.5 ${
                       earned ? "" : "opacity-35 grayscale"
                     }`}
                   >
@@ -97,7 +97,7 @@ export default async function AchievementsPage() {
                       {badge.emoji}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-semibold text-gray-900">
+                      <h3 className="text-sm font-bold text-gray-900">
                         {badge.name}
                       </h3>
                       <p className="text-xs text-gray-500 line-clamp-1">

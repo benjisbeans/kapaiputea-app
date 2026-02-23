@@ -10,6 +10,8 @@ import {
   Trophy,
   ChevronRight,
   Medal,
+  BarChart3,
+  Building2,
 } from "lucide-react";
 import { LEVEL_NAMES } from "@/lib/constants";
 import { StreakCalendar } from "./streak-calendar";
@@ -89,7 +91,7 @@ interface Props {
   hasActivityToday: boolean;
 }
 
-const CARD = "rounded-2xl border border-gray-200 bg-white";
+const CARD = "rounded-3xl border border-gray-200/60 bg-white shadow-sm";
 
 export function DashboardView({
   displayName,
@@ -117,61 +119,36 @@ export function DashboardView({
       initial="hidden"
       animate="show"
     >
-      {/* greeting */}
+      {/* hero greeting */}
       <motion.div variants={fadeUp}>
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-          Kia ora, {displayName}! 👋
-        </h1>
-        <p className="mt-1 text-gray-500">
-          Keep learning, keep earning.
-        </p>
-      </motion.div>
-
-      {/* stats */}
-      <motion.div
-        variants={fadeUp}
-        className="grid grid-cols-2 gap-3 sm:grid-cols-4"
-      >
-        {[
-          {
-            icon: Zap,
-            color: "text-kpp-yellow-dark",
-            bg: "bg-kpp-yellow/10",
-            value: xp.toLocaleString(),
-            label: "Total XP",
-          },
-          {
-            icon: Flame,
-            color: "text-kpp-orange",
-            bg: "bg-kpp-orange/10",
-            value: String(streak),
-            label: "Day Streak",
-          },
-          {
-            icon: BookOpen,
-            color: "text-kpp-blue",
-            bg: "bg-kpp-blue/10",
-            value: String(lessons),
-            label: "Lessons Done",
-          },
-          {
-            icon: Trophy,
-            color: "text-kpp-purple",
-            bg: "bg-kpp-purple/10",
-            value: `Lvl ${currentLevel}`,
-            label: LEVEL_NAMES[currentLevel - 1],
-          },
-        ].map((s) => (
-          <div key={s.label} className={`${CARD} p-4`}>
-            <div className={`inline-flex rounded-lg p-2 ${s.bg}`}>
-              <s.icon className={`h-5 w-5 ${s.color}`} />
+        <div className="overflow-hidden rounded-3xl bg-gradient-to-br from-kpp-yellow via-kpp-orange to-kpp-pink p-6 shadow-lg">
+          <h1 className="text-3xl font-black tracking-tight text-white">
+            Kia ora, {displayName}! 👋
+          </h1>
+          <p className="mt-1 text-sm text-white/70">
+            Keep learning, keep earning.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <div className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1.5 backdrop-blur-sm">
+              <Zap className="h-4 w-4 text-white" />
+              <span className="text-sm font-black text-white">{xp.toLocaleString()} XP</span>
             </div>
-            <p className="mt-3 text-2xl font-bold tabular-nums text-gray-900">
-              {s.value}
-            </p>
-            <p className="text-xs text-gray-500">{s.label}</p>
+            {currentStreak > 0 && (
+              <div className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1.5 backdrop-blur-sm">
+                <Flame className="h-4 w-4 text-white" />
+                <span className="text-sm font-black text-white">{streak} day streak</span>
+              </div>
+            )}
+            <div className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1.5 backdrop-blur-sm">
+              <BookOpen className="h-4 w-4 text-white" />
+              <span className="text-sm font-black text-white">{lessons} lessons</span>
+            </div>
+            <div className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1.5 backdrop-blur-sm">
+              <Trophy className="h-4 w-4 text-white" />
+              <span className="text-sm font-black text-white">Lvl {currentLevel}</span>
+            </div>
           </div>
-        ))}
+        </div>
       </motion.div>
 
       {/* streak calendar */}
@@ -193,9 +170,9 @@ export function DashboardView({
             {totalXp} / {nextLevelXp} XP
           </span>
         </div>
-        <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-gray-100">
+        <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-gray-100">
           <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-kpp-yellow to-kpp-yellow-dark"
+            className="h-full rounded-full bg-gradient-to-r from-kpp-yellow to-kpp-yellow-dark shadow-[0_0_8px_rgba(234,179,8,0.3)]"
             initial={{ width: 0 }}
             animate={{ width: `${levelProgress}%` }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
@@ -208,13 +185,13 @@ export function DashboardView({
         <motion.div variants={fadeUp}>
           <Link
             href={`/modules/${nextModule.slug}`}
-            className={`${CARD} group flex items-center justify-between p-5 transition-colors hover:border-kpp-yellow-dark/30 hover:bg-kpp-yellow/5`}
+            className={`${CARD} group flex items-center justify-between p-5 transition-all hover:border-kpp-yellow-dark/30 hover:bg-kpp-yellow/5 hover:shadow-md hover:-translate-y-0.5`}
           >
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-kpp-yellow-dark">
                 {isResuming ? "Continue Learning" : "Up Next"}
               </p>
-              <h3 className="mt-1.5 text-lg font-bold text-gray-900">
+              <h3 className="mt-1.5 text-lg font-black text-gray-900">
                 {nextModule.icon_emoji} {nextModule.title}
               </h3>
               <p className="mt-1 text-sm text-gray-500 line-clamp-1">
@@ -239,7 +216,7 @@ export function DashboardView({
       {recentBadges.length > 0 && (
         <motion.div variants={fadeUp} className={`${CARD} p-5`}>
           <div className="flex items-center justify-between">
-            <h3 className="flex items-center gap-2 text-sm font-semibold text-gray-900">
+            <h3 className="flex items-center gap-2 text-sm font-bold text-gray-900">
               <Medal className="h-4 w-4 text-kpp-yellow-dark" />
               Recent Badges
             </h3>
@@ -265,9 +242,48 @@ export function DashboardView({
         </motion.div>
       )}
 
+      {/* games */}
+      <motion.div variants={fadeUp}>
+        <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-gray-400">
+          Games
+        </h3>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Link
+            href="/invest"
+            className={`${CARD} group flex items-center gap-4 p-5 transition-all hover:border-emerald-300 hover:shadow-md hover:-translate-y-0.5`}
+          >
+            <div className="inline-flex rounded-xl bg-emerald-100 p-3">
+              <BarChart3 className="h-6 w-6 text-emerald-600" />
+            </div>
+            <div>
+              <h4 className="font-black text-gray-900">Stock Market</h4>
+              <p className="text-xs text-gray-500">
+                Buy &amp; sell NZ stocks
+              </p>
+            </div>
+            <ChevronRight className="ml-auto h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+          <Link
+            href="/hustle"
+            className={`${CARD} group flex items-center gap-4 p-5 transition-all hover:border-kpp-pink/30 hover:shadow-md hover:-translate-y-0.5`}
+          >
+            <div className="inline-flex rounded-xl bg-kpp-pink/10 p-3">
+              <Building2 className="h-6 w-6 text-kpp-pink" />
+            </div>
+            <div>
+              <h4 className="font-black text-gray-900">Hustle Empire</h4>
+              <p className="text-xs text-gray-500">
+                Build your business
+              </p>
+            </div>
+            <ChevronRight className="ml-auto h-5 w-5 text-gray-300 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+      </motion.div>
+
       {/* modules */}
       <motion.div variants={fadeUp}>
-        <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-400">
+        <h3 className="mb-4 text-sm font-bold uppercase tracking-wider text-gray-400">
           Your Modules
         </h3>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -282,7 +298,7 @@ export function DashboardView({
               <Link
                 key={mod.id}
                 href={`/modules/${mod.slug}`}
-                className={`${CARD} group p-5 transition-colors hover:border-gray-300 hover:shadow-sm`}
+                className={`${CARD} group p-5 transition-all hover:border-gray-300 hover:shadow-md hover:-translate-y-0.5`}
               >
                 <div className="flex items-center justify-between">
                   <span className="text-2xl">{mod.icon_emoji}</span>
@@ -292,7 +308,7 @@ export function DashboardView({
                     </span>
                   )}
                 </div>
-                <h4 className="mt-2 font-semibold text-gray-900">
+                <h4 className="mt-2 font-bold text-gray-900">
                   {mod.title}
                 </h4>
                 <p className="mt-0.5 text-xs text-gray-500">

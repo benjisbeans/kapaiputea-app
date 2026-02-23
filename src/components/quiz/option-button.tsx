@@ -32,7 +32,7 @@ export function OptionButton({
     >
       {emoji && <span className="text-3xl">{emoji}</span>}
       <div className="flex-1">
-        <p className="text-lg font-semibold">{label}</p>
+        <p className="text-lg font-bold">{label}</p>
         {description && (
           <p className="mt-0.5 text-sm text-gray-500">{description}</p>
         )}

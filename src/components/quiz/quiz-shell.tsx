@@ -102,8 +102,8 @@ export function QuizShell({ questions }: QuizShellProps) {
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
-          <span className="text-sm font-medium text-kpp-dark">
-            Ka Pai Putea
+          <span className="text-sm font-black text-kpp-dark">
+            Ka Pai Pūtea
           </span>
           <div className="w-10" />
         </div>
@@ -121,7 +121,7 @@ export function QuizShell({ questions }: QuizShellProps) {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="flex flex-1 flex-col"
           >
-            <h2 className="mb-8 text-2xl font-bold text-gray-900">
+            <h2 className="mb-8 text-2xl font-black text-gray-900">
               {currentQuestion.question_text}
             </h2>
 
@@ -162,7 +162,7 @@ export function QuizShell({ questions }: QuizShellProps) {
               animate={{ opacity: 1, y: 0 }}
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="w-full rounded-2xl bg-kpp-dark px-8 py-4 text-lg font-bold text-white transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60"
+              className="w-full rounded-full bg-black px-8 py-4 text-lg font-black text-white transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60"
             >
               {isSubmitting ? "Creating your profile..." : "See My Profile!"}
             </motion.button>
@@ -174,7 +174,7 @@ export function QuizShell({ questions }: QuizShellProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 onClick={nextStep}
-                className="w-full rounded-2xl bg-kpp-dark px-8 py-4 text-lg font-bold text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full rounded-full bg-black px-8 py-4 text-lg font-black text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 Next
               </motion.button>

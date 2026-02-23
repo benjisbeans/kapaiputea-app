@@ -21,7 +21,7 @@ export default function SettingsPage() {
   return (
     <div className="mx-auto max-w-lg space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-black text-gray-900">
           <Settings className="mr-2 inline h-6 w-6 text-gray-400" />
           Settings
         </h1>
@@ -31,7 +31,7 @@ export default function SettingsPage() {
         {/* Theme toggle */}
         <button
           onClick={toggleTheme}
-          className="flex w-full items-center justify-between rounded-2xl border border-gray-200 bg-white p-4"
+          className="flex w-full items-center justify-between rounded-3xl border border-gray-200 bg-white p-4"
         >
           <div className="flex items-center gap-3">
             {theme === "dark" ? (
@@ -55,7 +55,7 @@ export default function SettingsPage() {
         <button
           onClick={handleLogout}
           disabled={loggingOut}
-          className="flex w-full items-center gap-3 rounded-2xl border border-destructive/20 bg-destructive/5 p-4 text-destructive transition-colors hover:bg-destructive/10"
+          className="flex w-full items-center gap-3 rounded-3xl border border-destructive/20 bg-destructive/5 p-4 text-destructive transition-colors hover:bg-destructive/10"
         >
           <LogOut className="h-5 w-5" />
           <span className="font-medium">

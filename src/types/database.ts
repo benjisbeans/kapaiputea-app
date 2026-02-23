@@ -11,6 +11,7 @@ export type Profile = {
   financial_confidence: number | null;
   has_part_time_job: boolean;
   goals: string[];
+  pathway_detail: string | null;
   school_id: string | null;
   class_code: string | null;
   onboarding_completed: boolean;
@@ -21,6 +22,7 @@ export type Profile = {
   last_activity_date: string | null;
   modules_completed: number;
   lessons_completed: number;
+  bank_balance: number;
   created_at: string;
   updated_at: string;
 };
@@ -228,6 +230,59 @@ export type UserBadge = {
   badge_id: string;
   earned_at: string;
   badge?: Badge;
+};
+
+export type Stock = {
+  id: string;
+  symbol: string;
+  name: string;
+  sector: string;
+  emoji: string;
+  base_price: number;
+  volatility: number;
+  created_at: string;
+};
+
+export type UserPortfolio = {
+  id: string;
+  user_id: string;
+  cash_balance: number;
+  created_at: string;
+};
+
+export type UserHolding = {
+  id: string;
+  user_id: string;
+  stock_id: string;
+  shares: number;
+  avg_buy_price: number;
+  stock?: Stock;
+};
+
+export type UserTrade = {
+  id: string;
+  user_id: string;
+  stock_id: string;
+  trade_type: "buy" | "sell";
+  shares: number;
+  price_per_share: number;
+  total_amount: number;
+  created_at: string;
+  stock?: Stock;
+};
+
+export type UserBusiness = {
+  id: string;
+  user_id: string;
+  business_type: string;
+  business_level: number;
+  revenue_per_hour: number;
+  cost_per_hour: number;
+  cash_balance: number;
+  total_earned: number;
+  upgrades: string[];
+  last_collected_at: string;
+  created_at: string;
 };
 
 export type LeaderboardEntry = {

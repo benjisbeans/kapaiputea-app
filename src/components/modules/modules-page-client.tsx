@@ -34,7 +34,7 @@ function ModuleCard({
   return (
     <Link
       href={isLocked ? "#" : `/modules/${mod.slug}`}
-      className={`group relative block rounded-2xl border border-gray-200 bg-white p-5 transition-all ${
+      className={`group relative block rounded-3xl border border-gray-200 bg-white p-5 transition-all ${
         isLocked
           ? "cursor-not-allowed opacity-40"
           : "hover:border-gray-300 hover:shadow-sm"
@@ -70,7 +70,7 @@ function ModuleCard({
           </span>
         )}
       </div>
-      <h3 className="mt-2 font-semibold text-gray-900">{mod.title}</h3>
+      <h3 className="mt-2 font-bold text-gray-900">{mod.title}</h3>
       <p className="mt-1 text-sm text-gray-500 line-clamp-2">
         {mod.description}
       </p>

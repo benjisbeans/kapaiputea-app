@@ -35,7 +35,7 @@ export const LEVEL_NAMES = [
 ];
 
 export const STREAM_LABELS: Record<string, string> = {
-  trade: "Trades Life",
+  trade: "Tradie",
   uni: "Uni-Bound",
   "early-leaver": "Straight to Work",
   military: "Military / Services",
@@ -49,6 +49,62 @@ export const STREAM_EMOJIS: Record<string, string> = {
   military: "🎖️",
   unsure: "🤷",
 };
+
+export const PATHWAY_OPTIONS: Record<string, { label: string; options: string[] }> = {
+  trade: {
+    label: "Title",
+    options: [
+      "Sparky", "Plumber", "Carpenter", "Builder", "Mechanic",
+      "Welder", "Painter", "Landscaper", "Chef",
+      "Hairdresser", "Hilux Driver", "Tradie Legend",
+    ],
+  },
+  uni: {
+    label: "Title",
+    options: [
+      "Engineering", "Commerce", "Law", "Med Student",
+      "Science", "Arts", "Computer Science", "Education",
+      "Design", "Psychology", "Castle St King",
+      "Lecture Skipper", "Uni Grinder",
+    ],
+  },
+  military: {
+    label: "Title",
+    options: [
+      "Army", "Navy", "Air Force", "NZSAS",
+      "Goose",
+    ],
+  },
+  "early-leaver": {
+    label: "Title",
+    options: [
+      "Self-Made", "Barista", "Retail", "Musician",
+      "Warehouse G", "Hospo", "Surfer", "Content Creator", "Farmer",
+      "Labourer", "Freelancer", "Driver", "Admin",
+      "Gym Instructor", "Ski Bum",
+    ],
+  },
+  unsure: {
+    label: "Title",
+    options: [
+      "Gap Year", "Travelling", "Working on It", "Open Book",
+      "Dunno",
+    ],
+  },
+};
+
+export const GOAL_OPTIONS = [
+  "Save money", "Buy a car", "Pay for uni", "Start investing",
+  "Get a flat", "Travel", "Start a business", "Build credit",
+  "Emergency fund", "Help whanau",
+];
+
+export const AVATAR_EMOJIS = [
+  "💰", "🔥", "⚡", "🎯", "🚀", "💪", "🧠", "👑",
+  "🐺", "🎓", "🔧", "🎖️", "💼", "🤷", "🥝", "🌱",
+  "😎", "☕", "🏗️", "🌏", "🦅", "🐝", "🎮", "🎵",
+  "🏀", "🌊", "🤙", "🍕",
+];
 
 export function getLevelFromXp(xp: number): number {
   for (let i = LEVEL_THRESHOLDS.length - 1; i >= 0; i--) {

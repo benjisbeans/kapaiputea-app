@@ -97,7 +97,7 @@ export function XpCelebration({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-4 text-5xl font-bold text-kpp-dark"
+            className="mt-4 text-5xl font-black text-kpp-dark"
           >
             +{xpEarned} XP
           </motion.p>
@@ -136,7 +136,7 @@ export function XpCelebration({
             className="mt-6 rounded-2xl bg-purple-50 p-4"
           >
             <ArrowUp className="mx-auto h-8 w-8 text-kpp-purple" />
-            <p className="mt-2 text-lg font-bold text-kpp-purple">
+            <p className="mt-2 text-lg font-black text-kpp-purple">
               Level Up!
             </p>
             <p className="text-sm text-gray-500">
@@ -195,7 +195,7 @@ export function XpCelebration({
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8 }}
           onClick={onDone}
-          className="mt-8 w-full rounded-2xl bg-kpp-dark px-8 py-4 text-lg font-bold text-white transition-transform hover:scale-[1.02]"
+          className="mt-8 w-full rounded-full bg-black px-8 py-4 text-lg font-black text-white transition-transform hover:scale-[1.02]"
         >
           Continue
         </motion.button>

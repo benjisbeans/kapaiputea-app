@@ -37,10 +37,10 @@
 }
 
 :root {
-  --background: #FFFFFF;
+  --background: #FAFAFA;
   --foreground: #111827;
-  --surface: #F9FAFB;
-  --surface-hover: #F3F4F6;
+  --surface: #F3F4F6;
+  --surface-hover: #E5E7EB;
   --border-color: #E5E7EB;
   --muted: #F3F4F6;
   --muted-fg: #6B7280;

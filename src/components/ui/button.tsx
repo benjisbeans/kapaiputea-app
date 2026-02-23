@@ -6,12 +6,12 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kpp-yellow focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kpp-yellow focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
   {
     variants: {
       variant: {
         default:
-          "bg-kpp-yellow text-kpp-dark hover:bg-kpp-yellow/90 shadow-sm",
+          "bg-kpp-yellow text-kpp-dark hover:bg-kpp-yellow/90 shadow-sm hover:shadow-md",
         secondary:
           "bg-surface text-foreground hover:bg-surface-hover border border-border",
         outline:
@@ -22,9 +22,9 @@ const buttonVariants = cva(
           "bg-destructive text-white hover:bg-destructive/90 shadow-sm",
       },
       size: {
-        sm: "h-8 px-3 text-xs rounded-lg",
-        default: "h-10 px-5 py-2",
-        lg: "h-12 px-8 text-base rounded-2xl",
+        sm: "h-8 px-4 text-xs",
+        default: "h-10 px-6 py-2",
+        lg: "h-12 px-8 text-base",
         icon: "h-10 w-10 p-0",
       },
     },

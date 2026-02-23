@@ -122,7 +122,7 @@ export function ProfileRevealClient({ profile }: ProfileRevealClientProps) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
-                        className="text-2xl font-bold text-gray-900"
+                        className="text-2xl font-black text-gray-900"
                       >
                         {profile.display_name}
                       </motion.h1>
@@ -156,13 +156,13 @@ export function ProfileRevealClient({ profile }: ProfileRevealClientProps) {
                       <div className="grid grid-cols-2 gap-3">
                         <div className="rounded-xl bg-gray-50 p-3">
                           <p className="text-xs text-gray-400">Year</p>
-                          <p className="text-lg font-bold text-gray-900">
+                          <p className="text-lg font-black text-gray-900">
                             {profile.year_group}
                           </p>
                         </div>
                         <div className="rounded-xl bg-gray-50 p-3">
                           <p className="text-xs text-gray-400">Path</p>
-                          <p className="text-lg font-bold text-gray-900">
+                          <p className="text-lg font-black text-gray-900">
                             {STREAM_EMOJIS[profile.stream]}{" "}
                             {STREAM_LABELS[profile.stream]}
                           </p>
@@ -199,7 +199,7 @@ export function ProfileRevealClient({ profile }: ProfileRevealClientProps) {
           >
             <button
               onClick={() => router.push("/dashboard")}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-kpp-dark px-8 py-4 text-lg font-bold text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-black px-8 py-4 text-lg font-black text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               Start Learning
               <ArrowRight className="h-5 w-5" />
@@ -213,7 +213,7 @@ export function ProfileRevealClient({ profile }: ProfileRevealClientProps) {
                   });
                 }
               }}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-gray-200 px-8 py-4 text-lg font-bold text-gray-900 transition-colors hover:bg-gray-50"
+              className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-gray-200 px-8 py-4 text-lg font-black text-gray-900 transition-colors hover:bg-gray-50"
             >
               <Share2 className="h-5 w-5" />
               Share Your Card
