@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { calculateXpAward } from "@/lib/gamification/xp-calculator";
 import { findNewBadges } from "@/lib/gamification/badge-evaluator";
 import { getLevelFromXp } from "@/lib/constants";
+import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 
@@ -20,6 +21,15 @@ export async function POST(request: Request, { params }: Props) {
 
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Rate limit: 30 lesson completions per minute per user
+    const rl = rateLimit(`lesson-complete:${user.id}`, 30);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: "Too many requests — slow down a bit." },
+        { status: 429 }
+      );
     }
 
     // Check if lesson exists

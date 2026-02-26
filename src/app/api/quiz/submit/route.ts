@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { generateProfileTag, resolveStream } from "@/lib/quiz/profile-generator";
+import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 import { z } from "zod/v4";
 
@@ -17,6 +18,15 @@ export async function POST(request: Request) {
 
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Rate limit: 5 quiz submissions per minute per user
+    const rl = rateLimit(`quiz-submit:${user.id}`, 5);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: "Too many requests — slow down a bit." },
+        { status: 429 }
+      );
     }
 
     const body = await request.json();

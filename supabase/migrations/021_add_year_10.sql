@@ -14,7 +14,7 @@ ALTER TABLE public.modules
 
 -- Money Basics stays for lower years only
 UPDATE public.modules
-  SET target_year_groups = ARRAY[10,11]
+  SET target_year_groups = ARRAY[10]
   WHERE slug = 'money-basics';
 
 -- 3. Add Year 10 option to the quiz question

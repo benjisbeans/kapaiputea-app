@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { containsProfanity } from "@/lib/profanity";
+import { rateLimit } from "@/lib/rate-limit";
 import { NextResponse } from "next/server";
 import { z } from "zod/v4";
 
@@ -24,6 +25,15 @@ export async function PATCH(request: Request) {
 
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Rate limit: 20 profile updates per minute per user
+    const rl = rateLimit(`profile-update:${user.id}`, 20);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: "Too many requests — slow down a bit." },
+        { status: 429 }
+      );
     }
 
     const body = await request.json();

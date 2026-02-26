@@ -12,6 +12,7 @@ export default function SignupPage() {
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -123,12 +124,32 @@ export default function SignupPage() {
           />
         </div>
 
+        <label className="flex items-start gap-2.5 text-sm text-gray-600">
+          <input
+            type="checkbox"
+            checked={agreed}
+            onChange={(e) => setAgreed(e.target.checked)}
+            className="mt-0.5 h-4 w-4 rounded border-gray-300 accent-kpp-yellow-dark"
+            required
+          />
+          <span>
+            I agree to the{" "}
+            <Link href="/terms" className="font-medium text-kpp-dark underline hover:no-underline" target="_blank">
+              Terms of Service
+            </Link>{" "}
+            and{" "}
+            <Link href="/privacy" className="font-medium text-kpp-dark underline hover:no-underline" target="_blank">
+              Privacy Policy
+            </Link>
+          </span>
+        </label>
+
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || !agreed}
           className={cn(
             "w-full rounded-full bg-black px-4 py-3 text-sm font-black text-white transition-all hover:bg-gray-800 active:scale-[0.98]",
-            loading && "cursor-not-allowed opacity-60"
+            (loading || !agreed) && "cursor-not-allowed opacity-60"
           )}
         >
           {loading ? "Creating account..." : "Create Account"}
