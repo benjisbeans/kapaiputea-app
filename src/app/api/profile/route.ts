@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { containsProfanity } from "@/lib/profanity";
 import { NextResponse } from "next/server";
 import { z } from "zod/v4";
 
@@ -27,6 +28,13 @@ export async function PATCH(request: Request) {
 
     const body = await request.json();
     const parsed = profileUpdateSchema.parse(body);
+
+    if (parsed.display_name && containsProfanity(parsed.display_name)) {
+      return NextResponse.json(
+        { error: "That name isn't allowed — try something else." },
+        { status: 400 }
+      );
+    }
 
     const { data: updated, error } = await supabase
       .from("profiles")

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { containsProfanity } from "@/lib/profanity";
 import { cn } from "@/lib/utils";
 
 export default function SignupPage() {
@@ -18,6 +19,12 @@ export default function SignupPage() {
     e.preventDefault();
     setError(null);
     setLoading(true);
+
+    if (containsProfanity(displayName)) {
+      setError("That name isn't allowed — try something else.");
+      setLoading(false);
+      return;
+    }
 
     const supabase = createClient();
     const { error } = await supabase.auth.signUp({
