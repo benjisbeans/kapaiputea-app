@@ -44,7 +44,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="rounded-3xl bg-white p-8 shadow-xl">
+    <div className="rounded-3xl border border-gray-200 bg-white p-8 shadow-xl">
       <div className="mb-6 text-center">
         <h1 className="text-2xl font-black text-gray-900">
           Let&apos;s get started! 🚀

@@ -9,7 +9,6 @@ export default function AuthLayout({
         <span className="text-4xl font-black tracking-tight text-kpp-dark">
           Ka Pai Pūtea
         </span>
-        <span className="ml-2 text-3xl">💰</span>
       </div>
       <div className="w-full max-w-md">{children}</div>
     </div>

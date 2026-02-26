@@ -38,7 +38,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="rounded-3xl bg-white p-8 shadow-xl">
+    <div className="rounded-3xl border border-gray-200 bg-white p-8 shadow-xl">
       <div className="mb-6 text-center">
         <h1 className="text-2xl font-black text-gray-900">Welcome back! 👋</h1>
         <p className="mt-2 text-sm text-gray-500">
