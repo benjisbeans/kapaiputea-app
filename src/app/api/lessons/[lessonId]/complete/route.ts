@@ -3,6 +3,7 @@ import { calculateXpAward } from "@/lib/gamification/xp-calculator";
 import { findNewBadges } from "@/lib/gamification/badge-evaluator";
 import { getLevelFromXp } from "@/lib/constants";
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 interface Props {
   params: Promise<{ lessonId: string }>;
@@ -228,6 +229,15 @@ export async function POST(request: Request, { params }: Props) {
           .eq("id", user.id);
       }
     }
+
+    // Revalidate cached pages so progress shows immediately
+    const moduleSlug = lesson.module?.slug;
+    if (moduleSlug) {
+      revalidatePath(`/modules/${moduleSlug}`);
+      revalidatePath(`/modules/${moduleSlug}/${lesson.slug}`);
+    }
+    revalidatePath("/modules");
+    revalidatePath("/dashboard");
 
     return NextResponse.json({
       total: xpResult.total,

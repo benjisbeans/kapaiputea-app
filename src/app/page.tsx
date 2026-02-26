@@ -5,6 +5,35 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { STREAM_LABELS, STREAM_EMOJIS } from "@/lib/constants";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Ka Pai Pūtea",
+  alternateName: "Ka Pai Putea",
+  url: "https://kapaiputea.com",
+  description:
+    "Free gamified financial literacy platform for New Zealand secondary school students. Learn budgeting, KiwiSaver, tax, credit scores and more through interactive lessons.",
+  applicationCategory: "EducationalApplication",
+  operatingSystem: "Web",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "NZD", availability: "https://schema.org/InStock" },
+  audience: {
+    "@type": "EducationalAudience",
+    educationalRole: "student",
+    audienceType: "Secondary school students",
+  },
+  about: {
+    "@type": "Thing",
+    name: "Financial literacy education",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "New Zealand",
+  },
+  availableLanguage: "en-NZ",
+  inLanguage: "en-NZ",
+  keywords: "financial literacy, NZ students, KiwiSaver, budgeting, money skills, gamified learning",
+};
+
 /* ------------------------------------------------------------------ */
 /*  useCounter                                                         */
 /* ------------------------------------------------------------------ */
@@ -158,6 +187,33 @@ function StatCard({
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
+      {/* -------- Header / Nav -------- */}
+      <header className="absolute top-0 left-0 right-0 z-10 px-8 py-6">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between" aria-label="Main navigation">
+          <Link href="/" className="flex items-center gap-2 text-black">
+            <span className="text-2xl" aria-hidden="true">💰</span>
+            <span className="text-lg font-black">Ka Pai Pūtea</span>
+          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/for-teachers" className="hidden sm:inline-block text-sm font-medium text-black/60 hover:text-black transition-colors">
+              For Teachers
+            </Link>
+            <Link href="/login" className="text-sm font-medium text-black/60 hover:text-black transition-colors">
+              Log in
+            </Link>
+            <Link href="/signup" className="rounded-full bg-black px-5 py-2 text-sm font-bold text-white hover:bg-gray-800 transition-colors">
+              Sign Up Free
+            </Link>
+          </div>
+        </nav>
+      </header>
+
+      <main>
       {/* -------- Hero -------- */}
       <motion.section
         initial={{ opacity: 0 }}
@@ -503,24 +559,32 @@ export default function LandingPage() {
         </Link>
       </motion.section>
 
+      </main>
+
       {/* -------- Footer -------- */}
       <footer className="bg-black text-white py-12 px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex flex-col items-center sm:items-start gap-1">
             <div className="flex items-center gap-2">
-              <span className="text-2xl">💰</span>
+              <span className="text-2xl" aria-hidden="true">💰</span>
               <span className="text-lg font-bold">Ka Pai Pūtea</span>
             </div>
             <p className="text-sm text-gray-400">Financial literacy for young New Zealanders</p>
           </div>
-          <div className="flex items-center gap-4">
+          <nav className="flex items-center gap-4" aria-label="Footer navigation">
+            <Link href="/for-teachers" className="text-gray-400 hover:text-white transition-colors font-medium">
+              For Teachers
+            </Link>
+            <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors font-medium">
+              Privacy
+            </Link>
             <Link href="/login" className="text-gray-400 hover:text-white transition-colors font-medium">
               Log in
             </Link>
             <Link href="/signup" className="text-gray-400 hover:text-white transition-colors font-medium">
               Sign up
             </Link>
-          </div>
+          </nav>
         </div>
         <div className="max-w-7xl mx-auto mt-8 border-t border-gray-800 pt-6 text-center">
           <p className="text-gray-400">Made with aroha in Aotearoa 🇳🇿</p>

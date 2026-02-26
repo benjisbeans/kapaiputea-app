@@ -33,7 +33,9 @@ export function Sidebar() {
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/20 md:hidden"
+          aria-hidden="true"
           onClick={() => setSidebarOpen(false)}
+          onKeyDown={(e) => { if (e.key === "Escape") setSidebarOpen(false); }}
         />
       )}
 
@@ -53,6 +55,7 @@ export function Sidebar() {
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
+            aria-label="Close sidebar"
             className="rounded-lg p-1.5 text-gray-400 transition-colors hover:text-gray-700 md:hidden"
           >
             <X className="h-5 w-5" />

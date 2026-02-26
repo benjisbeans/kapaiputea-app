@@ -128,7 +128,7 @@ export async function GET(request: NextRequest) {
             fontSize: "18px",
           }}
         >
-          Learn money skills that actually matter — kapaiputea.co.nz
+          Learn money skills that actually matter — kapaiputea.com
         </div>
       </div>
     ),

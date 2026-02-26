@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Share2, Check, Link as LinkIcon, X as XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -52,6 +52,15 @@ export function ShareButton({
     }, 1500);
   };
 
+  useEffect(() => {
+    if (!showDropdown) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowDropdown(false);
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [showDropdown]);
+
   const handleTwitter = () => {
     const tweetText = encodeURIComponent(`${shareData.text}\n${fullUrl}`);
     window.open(`https://twitter.com/intent/tweet?text=${tweetText}`, "_blank");
@@ -63,6 +72,7 @@ export function ShareButton({
       <div className="relative">
         <button
           onClick={handleShare}
+          aria-label="Share"
           className={cn(
             "rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600",
             className
@@ -72,7 +82,7 @@ export function ShareButton({
         </button>
         {showDropdown && (
           <>
-            <div className="fixed inset-0 z-40" onClick={() => setShowDropdown(false)} />
+            <div className="fixed inset-0 z-40" aria-hidden="true" onClick={() => setShowDropdown(false)} />
             <div className="absolute right-0 top-full z-50 mt-1 w-48 rounded-xl border border-gray-200 bg-white p-1 shadow-lg">
               <button
                 onClick={handleCopyLink}
@@ -110,7 +120,7 @@ export function ShareButton({
         </button>
         {showDropdown && (
           <>
-            <div className="fixed inset-0 z-40" onClick={() => setShowDropdown(false)} />
+            <div className="fixed inset-0 z-40" aria-hidden="true" onClick={() => setShowDropdown(false)} />
             <div className="absolute left-0 top-full z-50 mt-1 w-48 rounded-xl border border-gray-200 bg-white p-1 shadow-lg">
               <button
                 onClick={handleCopyLink}
@@ -148,7 +158,7 @@ export function ShareButton({
       </button>
       {showDropdown && (
         <>
-          <div className="fixed inset-0 z-40" onClick={() => setShowDropdown(false)} />
+          <div className="fixed inset-0 z-40" aria-hidden="true" onClick={() => setShowDropdown(false)} />
           <div className="absolute left-0 top-full z-50 mt-1 w-48 rounded-xl border border-gray-200 bg-white p-1 shadow-lg">
             <button
               onClick={handleCopyLink}

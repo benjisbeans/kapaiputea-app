@@ -19,7 +19,7 @@ export default async function PlatformLayout({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("*")
+    .select("id, total_xp, current_streak, profile_tag_emoji, onboarding_completed")
     .eq("id", user.id)
     .single();
 

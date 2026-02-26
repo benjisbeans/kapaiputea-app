@@ -81,15 +81,17 @@ export async function POST(request: Request) {
       description: "Completed onboarding quiz",
     });
 
-    // Update total XP
-    const { error: rpcError } = await supabase.rpc("increment_xp", { user_id: user.id, amount: 100 });
-    if (rpcError) {
-      // Fallback if RPC doesn't exist yet - direct update
-      await supabase
-        .from("profiles")
-        .update({ total_xp: 100 })
-        .eq("id", user.id);
-    }
+    // Update total XP atomically
+    const { data: currentProfile } = await supabase
+      .from("profiles")
+      .select("total_xp")
+      .eq("id", user.id)
+      .single();
+
+    await supabase
+      .from("profiles")
+      .update({ total_xp: (currentProfile?.total_xp ?? 0) + 100 })
+      .eq("id", user.id);
 
     // Get suggested modules for this stream
     const { data: modules } = await supabase

@@ -3,10 +3,12 @@
 import { Menu, Flame, Zap } from "lucide-react";
 import Link from "next/link";
 import { useUiStore } from "@/stores/ui-store";
-import type { Profile } from "@/types/database";
-
 interface TopBarProps {
-  profile: Profile | null;
+  profile: {
+    total_xp: number;
+    current_streak: number;
+    profile_tag_emoji: string | null;
+  } | null;
 }
 
 export function TopBar({ profile }: TopBarProps) {
@@ -16,6 +18,7 @@ export function TopBar({ profile }: TopBarProps) {
     <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-gray-100 bg-white/70 px-4 backdrop-blur-md md:px-8">
       <button
         onClick={toggleSidebar}
+        aria-label="Toggle sidebar"
         className="rounded-lg p-2 text-gray-400 transition-colors hover:text-gray-700 md:hidden"
       >
         <Menu className="h-5 w-5" />
@@ -41,9 +44,10 @@ export function TopBar({ profile }: TopBarProps) {
           </div>
           <Link
             href="/profile"
+            aria-label="Your profile"
             className="flex h-8 w-8 items-center justify-center rounded-full bg-kpp-yellow text-sm ring-2 ring-kpp-yellow/30 transition-transform hover:scale-105"
           >
-            {profile.profile_tag_emoji || "💰"}
+            <span aria-hidden="true">{profile.profile_tag_emoji || "💰"}</span>
           </Link>
         </div>
       )}

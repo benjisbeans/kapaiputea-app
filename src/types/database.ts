@@ -70,6 +70,7 @@ export type Module = {
   is_published: boolean;
   prerequisite_module_id: string | null;
   category: "core" | "advanced" | "stream" | "explore";
+  target_year_groups: number[];
   created_at: string;
 };
 

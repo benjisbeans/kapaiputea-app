@@ -12,7 +12,7 @@ export default async function ModulesPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("stream")
+    .select("stream, year_group")
     .eq("id", user.id)
     .single();
 
@@ -32,6 +32,12 @@ export default async function ModulesPage() {
     progressMap[p.module_id] = p;
   });
 
+  // Filter modules by the user's year group
+  const userYear = profile?.year_group ?? 11;
+  const filteredModules = (modules || []).filter(
+    (m) => !m.target_year_groups || m.target_year_groups.includes(userYear)
+  );
+
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <div>
@@ -44,7 +50,7 @@ export default async function ModulesPage() {
       </div>
 
       <ModulesPageClient
-        modules={modules || []}
+        modules={filteredModules}
         progressMap={progressMap}
         userStream={profile?.stream || "unsure"}
       />

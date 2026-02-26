@@ -100,6 +100,7 @@ export function LessonPlayer({
     currentLevel?: number;
   } | null>(null);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [completeError, setCompleteError] = useState<string | null>(null);
 
   const {
     setLesson,
@@ -155,7 +156,9 @@ export function LessonPlayer({
   }, [currentPage]);
 
   const handleComplete = async () => {
+    if (isCompleted || isSubmitting) return;
     setSubmitting(true);
+    setCompleteError(null);
     try {
       const res = await fetch(`/api/lessons/${lesson.id}/complete`, {
         method: "POST",
@@ -163,7 +166,14 @@ export function LessonPlayer({
         body: JSON.stringify({ moduleSlug }),
       });
 
-      if (!res.ok) throw new Error("Failed to complete lesson");
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        if (res.status === 400 && body?.error === "Already completed") {
+          setIsCompleted(true);
+          return;
+        }
+        throw new Error(body?.error || "Failed to complete lesson");
+      }
 
       const data = await res.json();
       setIsCompleted(true);
@@ -171,6 +181,7 @@ export function LessonPlayer({
       setShowCelebration(true);
     } catch (error) {
       console.error("Error completing lesson:", error);
+      setCompleteError("Something went wrong. Try again.");
     } finally {
       setSubmitting(false);
     }
@@ -296,6 +307,12 @@ export function LessonPlayer({
           </>
         ) : isLastPage ? (
           /* Last page — show Complete button */
+          <>
+          {completeError && (
+            <div role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center text-sm text-red-600">
+              {completeError}
+            </div>
+          )}
           <button
             onClick={handleComplete}
             disabled={!allDone || isSubmitting}
@@ -312,6 +329,7 @@ export function LessonPlayer({
               "Complete Lesson"
             )}
           </button>
+          </>
         ) : (
           /* Not last page — show Next */
           <button

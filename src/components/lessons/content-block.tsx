@@ -336,19 +336,29 @@ function shuffleArray<T>(arr: T[]): T[] {
 function extractCategories(instruction: string): { catA: string; catB: string } {
   const lower = instruction.toLowerCase();
 
-  // Known pairs
+  // Known pairs — catA maps to the FIRST HALF of correct_order,
+  // so it must match whichever end comes first in the instruction.
   if (lower.includes("income") && lower.includes("expense"))
     return { catA: "Income", catB: "Expense" };
   if (lower.includes("need") && lower.includes("want"))
     return { catA: "Needs", catB: "Wants" };
-  if (lower.includes("most") && lower.includes("least"))
-    return { catA: "More", catB: "Less" };
-  if (lower.includes("highest") && lower.includes("lowest"))
-    return { catA: "Higher", catB: "Lower" };
+  if (lower.includes("most") && lower.includes("least")) {
+    return lower.indexOf("least") < lower.indexOf("most")
+      ? { catA: "Less", catB: "More" }
+      : { catA: "More", catB: "Less" };
+  }
+  if (lower.includes("highest") && lower.includes("lowest")) {
+    return lower.indexOf("lowest") < lower.indexOf("highest")
+      ? { catA: "Lower", catB: "Higher" }
+      : { catA: "Higher", catB: "Lower" };
+  }
   if (lower.includes("important"))
     return { catA: "Important", catB: "Less important" };
-  if (lower.includes("first") && lower.includes("last"))
-    return { catA: "First", catB: "Last" };
+  if (lower.includes("first") && lower.includes("last")) {
+    return lower.indexOf("first") < lower.indexOf("last")
+      ? { catA: "First", catB: "Last" }
+      : { catA: "Last", catB: "First" };
+  }
 
   return { catA: "Group A", catB: "Group B" };
 }
