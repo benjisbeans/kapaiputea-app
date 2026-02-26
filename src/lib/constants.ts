@@ -57,6 +57,8 @@ export const PATHWAY_OPTIONS: Record<string, { label: string; options: string[] 
       "Sparky", "Plumber", "Carpenter", "Builder", "Mechanic",
       "Welder", "Painter", "Landscaper", "Chef",
       "Hairdresser", "Hilux Driver", "Tradie Legend",
+      "Mr. Ute", "Hammer Time", "She Builds", "Boss Tradie",
+      "Grind Queen", "Tool Belt", "Hard Yakka",
     ],
   },
   uni: {
@@ -66,13 +68,17 @@ export const PATHWAY_OPTIONS: Record<string, { label: string; options: string[] 
       "Science", "Arts", "Computer Science", "Education",
       "Design", "Psychology", "Castle St King",
       "Lecture Skipper", "Uni Grinder",
+      "Finance Bro", "Wolf of Wall Street", "Scholarship Hunter",
+      "LinkedIn Warrior", "CEO in Training", "Hustle Student",
+      "Noodle Budget", "Textbook Broke", "Study Grinder",
+      "Campus Cash", "Degree Dealer", "Study Saver",
     ],
   },
   military: {
     label: "Title",
     options: [
-      "Army", "Navy", "Air Force", "NZSAS",
-      "Goose",
+      "Army", "Navy", "Air Force", "NZSAS", "Goose",
+      "Navy Captain", "Cadet Cash", "Sergeant Savings", "Boot Camp Boss",
     ],
   },
   "early-leaver": {
@@ -82,13 +88,18 @@ export const PATHWAY_OPTIONS: Record<string, { label: string; options: string[] 
       "Warehouse G", "Hospo", "Surfer", "Content Creator", "Farmer",
       "Labourer", "Freelancer", "Driver", "Admin",
       "Gym Instructor", "Ski Bum",
+      "YOLO Earner", "Pay Day King", "Cash Flash",
+      "Stack Builder", "Silent Grinder", "Kiwi Saver",
+      "Real World Ready", "Boss Mode", "Grind Time",
     ],
   },
   unsure: {
     label: "Title",
     options: [
-      "Gap Year", "Travelling", "Working on It", "Open Book",
-      "Dunno",
+      "Gap Year", "Travelling", "Working on It", "Open Book", "Dunno",
+      "Secret Saver", "Quiet Achiever", "Side Hustler",
+      "Fresh Start", "Vibe Check",
+      "Money Rookie", "Kiwi Learner",
     ],
   },
 };
