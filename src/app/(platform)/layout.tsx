@@ -32,7 +32,7 @@ export default async function PlatformLayout({
       <Sidebar />
       <div className="md:pl-64">
         <TopBar profile={profile} />
-        <main className="px-4 py-6 pb-24 md:px-8 md:pb-8">{children}</main>
+        <main id="main-content" className="px-4 py-6 pb-24 md:px-8 md:pb-8">{children}</main>
       </div>
       <BottomNav />
     </div>

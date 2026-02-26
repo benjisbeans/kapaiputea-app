@@ -213,7 +213,7 @@ export default function LandingPage() {
         </nav>
       </header>
 
-      <main>
+      <main id="main-content">
       {/* -------- Hero -------- */}
       <motion.section
         initial={{ opacity: 0 }}
