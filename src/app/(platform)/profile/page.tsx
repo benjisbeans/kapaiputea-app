@@ -11,25 +11,26 @@ export default async function ProfilePage() {
 
   if (!user) redirect("/login");
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
+  const [{ data: profile }, { data: badges }, { data: allBadges }] =
+    await Promise.all([
+      supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single(),
+      supabase
+        .from("user_badges")
+        .select("*, badge:badges(*)")
+        .eq("user_id", user.id)
+        .order("earned_at", { ascending: false }),
+      supabase
+        .from("badges")
+        .select("*")
+        .eq("is_secret", false)
+        .order("rarity"),
+    ]);
 
   if (!profile) redirect("/quiz");
-
-  const { data: badges } = await supabase
-    .from("user_badges")
-    .select("*, badge:badges(*)")
-    .eq("user_id", user.id)
-    .order("earned_at", { ascending: false });
-
-  const { data: allBadges } = await supabase
-    .from("badges")
-    .select("*")
-    .eq("is_secret", false)
-    .order("rarity");
 
   const levelProgress = getLevelProgress(profile.total_xp);
   const nextLevelXp = getXpForNextLevel(profile.current_level);

@@ -10,22 +10,23 @@ export default async function ModulesPage() {
 
   if (!user) redirect("/login");
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("stream, year_group")
-    .eq("id", user.id)
-    .single();
-
-  const { data: modules } = await supabase
-    .from("modules")
-    .select("*")
-    .eq("is_published", true)
-    .order("module_order");
-
-  const { data: moduleProgress } = await supabase
-    .from("user_module_progress")
-    .select("*")
-    .eq("user_id", user.id);
+  const [{ data: profile }, { data: modules }, { data: moduleProgress }] =
+    await Promise.all([
+      supabase
+        .from("profiles")
+        .select("stream, year_group")
+        .eq("id", user.id)
+        .single(),
+      supabase
+        .from("modules")
+        .select("*")
+        .eq("is_published", true)
+        .order("module_order"),
+      supabase
+        .from("user_module_progress")
+        .select("*")
+        .eq("user_id", user.id),
+    ]);
 
   const progressMap: Record<string, (typeof moduleProgress extends (infer T)[] | null ? T : never)> = {};
   (moduleProgress || []).forEach((p) => {

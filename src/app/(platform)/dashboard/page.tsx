@@ -12,24 +12,38 @@ export default async function DashboardPage() {
 
   if (!user) redirect("/login");
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
+  // Run ALL queries in parallel — single round-trip wait
+  const [
+    { data: profile },
+    { data: modules },
+    { data: moduleProgress },
+    { data: recentBadges },
+    streakData,
+  ] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select("display_name, total_xp, current_streak, lessons_completed, current_level")
+      .eq("id", user.id)
+      .single(),
+    supabase
+      .from("modules")
+      .select("id, slug, title, icon_emoji, color, description, lesson_count, estimated_minutes, total_xp, module_order")
+      .eq("is_published", true)
+      .order("module_order"),
+    supabase
+      .from("user_module_progress")
+      .select("module_id, status, lessons_completed")
+      .eq("user_id", user.id),
+    supabase
+      .from("user_badges")
+      .select("id, badge:badges(emoji, name)")
+      .eq("user_id", user.id)
+      .order("earned_at", { ascending: false })
+      .limit(3),
+    getStreakCalendarData(supabase, user.id),
+  ]);
 
   if (!profile) redirect("/quiz");
-
-  const { data: modules } = await supabase
-    .from("modules")
-    .select("*")
-    .eq("is_published", true)
-    .order("module_order");
-
-  const { data: moduleProgress } = await supabase
-    .from("user_module_progress")
-    .select("*")
-    .eq("user_id", user.id);
 
   const progressMap = new Map(
     (moduleProgress || []).map((p) => [p.module_id, p])
@@ -42,18 +56,6 @@ export default async function DashboardPage() {
 
   const nextModule =
     inProgressModule || modules?.find((m) => !progressMap.has(m.id));
-
-  const { data: recentBadges } = await supabase
-    .from("user_badges")
-    .select("*, badge:badges(*)")
-    .eq("user_id", user.id)
-    .order("earned_at", { ascending: false })
-    .limit(3);
-
-  const { streakDays, hasActivityToday } = await getStreakCalendarData(
-    supabase,
-    user.id
-  );
 
   return (
     <DashboardView
@@ -89,14 +91,15 @@ export default async function DashboardPage() {
         completedLessons: progressMap.get(mod.id)?.lessons_completed || 0,
         status: progressMap.get(mod.id)?.status || null,
       }))}
-      recentBadges={(recentBadges || []).map((ub) => ({
-        id: ub.id,
-        badge: ub.badge
-          ? { emoji: ub.badge.emoji, name: ub.badge.name }
-          : null,
-      }))}
-      streakDays={streakDays}
-      hasActivityToday={hasActivityToday}
+      recentBadges={(recentBadges || []).map((ub) => {
+        const b = ub.badge as unknown as { emoji: string; name: string } | null;
+        return {
+          id: ub.id,
+          badge: b ? { emoji: b.emoji, name: b.name } : null,
+        };
+      })}
+      streakDays={streakData.streakDays}
+      hasActivityToday={streakData.hasActivityToday}
     />
   );
 }

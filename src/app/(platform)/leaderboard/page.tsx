@@ -13,6 +13,9 @@ const GENERIC_DOMAINS = [
   "protonmail.com",
 ];
 
+const LEADER_FIELDS =
+  "id, display_name, profile_tag, profile_tag_emoji, total_xp, current_level, current_streak, bank_balance";
+
 export default async function LeaderboardPage() {
   const supabase = await createClient();
   const {
@@ -21,21 +24,28 @@ export default async function LeaderboardPage() {
 
   if (!user) redirect("/login");
 
-  // Global leaderboard
-  const { data: leaders } = await supabase
-    .from("profiles")
-    .select(
-      "id, display_name, profile_tag, profile_tag_emoji, total_xp, current_level, current_streak, bank_balance, email"
-    )
-    .eq("onboarding_completed", true)
-    .order("total_xp", { ascending: false })
-    .limit(50);
-
-  // Determine school domain
-  const currentUser = leaders?.find((l) => l.id === user.id);
-  const userEmail = currentUser?.email || user.email;
-  const domain = userEmail?.split("@")[1]?.toLowerCase() || null;
+  // Determine school domain from auth email (no extra query needed)
+  const domain = user.email?.split("@")[1]?.toLowerCase() || null;
   const isSchoolDomain = domain && !GENERIC_DOMAINS.includes(domain);
+
+  // Run global + school queries in parallel
+  const [{ data: leaders }, schoolResult] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select(LEADER_FIELDS)
+      .eq("onboarding_completed", true)
+      .order("total_xp", { ascending: false })
+      .limit(50),
+    isSchoolDomain && domain
+      ? supabase
+          .from("profiles")
+          .select(LEADER_FIELDS)
+          .eq("onboarding_completed", true)
+          .ilike("email", `%@${domain}`)
+          .order("total_xp", { ascending: false })
+          .limit(50)
+      : Promise.resolve({ data: [] as never[] }),
+  ]);
 
   type LeaderEntry = {
     id: string;
@@ -47,26 +57,6 @@ export default async function LeaderboardPage() {
     current_streak: number;
     bank_balance: number;
   };
-
-  // Strip email before sending to client
-  const globalLeaders: LeaderEntry[] = (leaders || []).map(
-    ({ email: _e, ...rest }) => rest
-  );
-
-  // School leaderboard (only if school domain)
-  let schoolLeaders: LeaderEntry[] = [];
-  if (isSchoolDomain && domain) {
-    const { data } = await supabase
-      .from("profiles")
-      .select(
-        "id, display_name, profile_tag, profile_tag_emoji, total_xp, current_level, current_streak, bank_balance"
-      )
-      .eq("onboarding_completed", true)
-      .ilike("email", `%@${domain}`)
-      .order("total_xp", { ascending: false })
-      .limit(50);
-    schoolLeaders = (data || []) as LeaderEntry[];
-  }
 
   return (
     <div className="mx-auto max-w-5xl space-y-6">
@@ -80,8 +70,8 @@ export default async function LeaderboardPage() {
       </div>
 
       <LeaderboardClient
-        leaders={globalLeaders}
-        schoolLeaders={schoolLeaders}
+        leaders={(leaders || []) as LeaderEntry[]}
+        schoolLeaders={(schoolResult.data || []) as LeaderEntry[]}
         currentUserId={user.id}
         schoolDomain={isSchoolDomain ? domain : null}
       />
