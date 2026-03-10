@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { Medal } from "lucide-react";
+
 
 export default async function AchievementsPage() {
   const supabase = await createClient();

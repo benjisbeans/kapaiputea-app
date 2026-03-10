@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Flame, X } from "lucide-react";
 
@@ -20,6 +20,7 @@ interface StreakMilestoneProps {
 
 export function StreakMilestone({ currentStreak }: StreakMilestoneProps) {
   const [showMilestone, setShowMilestone] = useState<number | null>(null);
+  const pendingMilestone = useRef<number | null>(null);
 
   useEffect(() => {
     const milestone = MILESTONES.find((m) => m === currentStreak);
@@ -28,9 +29,16 @@ export function StreakMilestone({ currentStreak }: StreakMilestoneProps) {
     const key = `streak_milestone_${milestone}`;
     if (localStorage.getItem(key)) return;
 
-    setShowMilestone(milestone);
+    pendingMilestone.current = milestone;
     localStorage.setItem(key, "true");
   }, [currentStreak]);
+
+  useEffect(() => {
+    if (pendingMilestone.current !== null) {
+      setShowMilestone(pendingMilestone.current);
+      pendingMilestone.current = null;
+    }
+  });
 
   const message = showMilestone ? MILESTONE_MESSAGES[showMilestone] : null;
 

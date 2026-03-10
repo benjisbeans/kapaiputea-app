@@ -1,9 +1,12 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Zap, ArrowUp, Medal, X } from "lucide-react";
 import { LEVEL_NAMES } from "@/lib/constants";
 import { ShareButton } from "@/components/sharing/share-button";
+
+const CONFETTI_COLORS = ["#FDE047", "#A855F7", "#EC4899", "#3B82F6", "#22C55E", "#F97316"];
 
 interface XpCelebrationProps {
   xpEarned: number;
@@ -30,6 +33,19 @@ export function XpCelebration({
   currentStreak,
   currentLevel,
 }: XpCelebrationProps) {
+  const confetti = useMemo(
+    () =>
+      Array.from({ length: 30 }, (_, i) => ({
+        yEnd: -300 - Math.random() * 200,
+        xEnd: (Math.random() - 0.5) * 500,
+        delay: Math.random() * 0.8,
+        size: 6 + Math.random() * 10,
+        round: Math.random() > 0.5,
+        color: CONFETTI_COLORS[i % 6],
+      })),
+    []
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -38,35 +54,28 @@ export function XpCelebration({
       onClick={onDone}
     >
       {/* Confetti particles */}
-      {Array.from({ length: 30 }).map((_, i) => (
+      {confetti.map((c, i) => (
         <motion.div
           key={i}
           initial={{ opacity: 0, y: 0, x: 0 }}
           animate={{
             opacity: [0, 1, 0],
-            y: [0, -300 - Math.random() * 200],
-            x: [(Math.random() - 0.5) * 500],
+            y: [0, c.yEnd],
+            x: [c.xEnd],
           }}
           transition={{
             duration: 2.5,
-            delay: Math.random() * 0.8,
+            delay: c.delay,
             ease: "easeOut",
           }}
           className="pointer-events-none fixed"
           style={{
             top: "60%",
             left: "50%",
-            width: 6 + Math.random() * 10,
-            height: 6 + Math.random() * 10,
-            borderRadius: Math.random() > 0.5 ? "50%" : "2px",
-            backgroundColor: [
-              "#FDE047",
-              "#A855F7",
-              "#EC4899",
-              "#3B82F6",
-              "#22C55E",
-              "#F97316",
-            ][i % 6],
+            width: c.size,
+            height: c.size,
+            borderRadius: c.round ? "50%" : "2px",
+            backgroundColor: c.color,
           }}
         />
       ))}
