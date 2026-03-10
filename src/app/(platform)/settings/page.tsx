@@ -41,7 +41,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="mx-auto max-w-lg space-y-6">
+    <div className="mx-auto max-w-2xl space-y-6">
       <div>
         <h1 className="text-2xl font-black text-gray-900">
           <Settings className="mr-2 inline h-6 w-6 text-gray-400" />

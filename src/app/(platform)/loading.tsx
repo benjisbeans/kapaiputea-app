@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="mx-auto max-w-4xl animate-pulse space-y-6">
+    <div className="mx-auto max-w-6xl animate-pulse space-y-6">
       {/* Hero skeleton */}
       <div className="h-40 rounded-3xl bg-gray-100" />
       {/* Cards */}

@@ -59,7 +59,7 @@ export default async function ModuleDetailPage({ params }: Props) {
   };
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <div className="mx-auto max-w-5xl space-y-6">
       <Link
         href="/modules"
         className="inline-flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-gray-900"

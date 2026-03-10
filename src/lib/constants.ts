@@ -57,8 +57,8 @@ export const PATHWAY_OPTIONS: Record<string, { label: string; options: string[] 
       "Sparky", "Plumber", "Carpenter", "Builder", "Mechanic",
       "Welder", "Painter", "Landscaper", "Chef",
       "Hairdresser", "Hilux Driver", "Tradie Legend",
-      "Mr. Ute", "Hammer Time", "She Builds", "Boss Tradie",
-      "Grind Queen", "Tool Belt", "Hard Yakka",
+      "Mr. Ute", "Hammer Time", "She Builds", "Tradie",
+      "Tool Belt", "Hard Yakka",
     ],
   },
   uni: {
@@ -71,7 +71,7 @@ export const PATHWAY_OPTIONS: Record<string, { label: string; options: string[] 
       "Finance Bro", "Wolf of Wall Street", "Scholarship Hunter",
       "LinkedIn Warrior", "CEO in Training", "Hustle Student",
       "Noodle Budget", "Textbook Broke", "Study Grinder",
-      "Campus Cash", "Degree Dealer", "Study Saver",
+      "Campus Cash", "Degree Dealer",
     ],
   },
   military: {
@@ -88,18 +88,17 @@ export const PATHWAY_OPTIONS: Record<string, { label: string; options: string[] 
       "Warehouse G", "Hospo", "Surfer", "Content Creator", "Farmer",
       "Labourer", "Freelancer", "Driver", "Admin",
       "Gym Instructor", "Ski Bum",
-      "YOLO Earner", "Pay Day King", "Cash Flash",
+      "Pay Day King", "Cash Flash",
       "Stack Builder", "Silent Grinder", "Kiwi Saver",
-      "Real World Ready", "Boss Mode", "Grind Time",
+      "Real World Ready", "Grind Time",
     ],
   },
   unsure: {
     label: "Title",
     options: [
       "Gap Year", "Travelling", "Working on It", "Open Book", "Dunno",
-      "Secret Saver", "Quiet Achiever", "Side Hustler",
-      "Fresh Start", "Vibe Check",
-      "Money Rookie", "Kiwi Learner",
+      "Quiet Achiever", "Side Hustler",
+      "Fresh Start",
     ],
   },
 };

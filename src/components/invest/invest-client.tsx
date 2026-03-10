@@ -207,7 +207,7 @@ export function InvestClient() {
 
   return (
     <motion.div
-      className="mx-auto max-w-4xl space-y-5 pb-28"
+      className="mx-auto max-w-6xl space-y-5 pb-28"
       variants={stagger}
       initial="hidden"
       animate="show"

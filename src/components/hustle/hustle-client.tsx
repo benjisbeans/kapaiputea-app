@@ -157,7 +157,7 @@ export function HustleClient() {
   if (!business) {
     return (
       <motion.div
-        className="mx-auto max-w-4xl space-y-6 pb-28"
+        className="mx-auto max-w-6xl space-y-6 pb-28"
         variants={stagger}
         initial="hidden"
         animate="show"
@@ -209,7 +209,7 @@ export function HustleClient() {
 
   return (
     <motion.div
-      className="mx-auto max-w-4xl space-y-5 pb-28"
+      className="mx-auto max-w-6xl space-y-5 pb-28"
       variants={stagger}
       initial="hidden"
       animate="show"

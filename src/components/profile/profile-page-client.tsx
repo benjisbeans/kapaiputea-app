@@ -178,7 +178,7 @@ export function ProfilePageClient({
 
   return (
     <motion.div
-      className="mx-auto max-w-2xl space-y-6 pb-8"
+      className="mx-auto max-w-5xl space-y-6 pb-8"
       variants={stagger}
       initial="hidden"
       animate="show"

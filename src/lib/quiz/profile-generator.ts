@@ -35,8 +35,7 @@ const TAG_RULES: TagRule[] = [
     conditions: { stream: "trade", gender: "female" },
     tags: [
       { name: "She Builds", emoji: "👷‍♀️" },
-      { name: "Boss Tradie", emoji: "💪" },
-      { name: "Grind Queen", emoji: "👑" },
+      { name: "Tradie", emoji: "💪" },
     ],
   },
   // Trade-focused (any gender)
@@ -81,7 +80,6 @@ const TAG_RULES: TagRule[] = [
     tags: [
       { name: "Campus Cash", emoji: "🎓" },
       { name: "Degree Dealer", emoji: "📜" },
-      { name: "Study Saver", emoji: "🐷" },
     ],
   },
   // Military
@@ -98,7 +96,6 @@ const TAG_RULES: TagRule[] = [
   {
     conditions: { stream: "early-leaver", money_personality: "spender" },
     tags: [
-      { name: "YOLO Earner", emoji: "🔥" },
       { name: "Pay Day King", emoji: "👑" },
       { name: "Cash Flash", emoji: "💸" },
     ],
@@ -117,7 +114,6 @@ const TAG_RULES: TagRule[] = [
     conditions: { stream: "early-leaver" },
     tags: [
       { name: "Real World Ready", emoji: "🌏" },
-      { name: "Boss Mode", emoji: "😎" },
       { name: "Grind Time", emoji: "⏰" },
     ],
   },
@@ -125,7 +121,6 @@ const TAG_RULES: TagRule[] = [
   {
     conditions: { stream: "unsure", money_personality: "saver" },
     tags: [
-      { name: "Secret Saver", emoji: "🤫" },
       { name: "Quiet Achiever", emoji: "🧠" },
     ],
   },
@@ -143,7 +138,6 @@ const TAG_RULES: TagRule[] = [
     tags: [
       { name: "Fresh Start", emoji: "🌱" },
       { name: "Open Book", emoji: "📖" },
-      { name: "Vibe Check", emoji: "✌️" },
     ],
   },
 ];
@@ -182,9 +176,8 @@ export function generateProfileTag(answers: QuizAnswers): ProfileTag {
   }
   // Fallback
   const fallbacks: ProfileTag[] = [
-    { name: "Money Rookie", emoji: "💰" },
-    { name: "Kiwi Learner", emoji: "🥝" },
     { name: "Fresh Start", emoji: "🌱" },
+    { name: "Open Book", emoji: "📖" },
   ];
   return fallbacks[Math.floor(Math.random() * fallbacks.length)];
 }

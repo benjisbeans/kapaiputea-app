@@ -39,7 +39,7 @@ export default async function ModulesPage() {
   );
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6">
+    <div className="mx-auto max-w-6xl space-y-6">
       <div>
         <h1 className="text-3xl font-black tracking-tight text-gray-900">
           Modules

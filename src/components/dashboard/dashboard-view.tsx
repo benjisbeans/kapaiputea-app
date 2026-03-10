@@ -114,7 +114,7 @@ export function DashboardView({
 
   return (
     <motion.div
-      className="mx-auto max-w-4xl space-y-6"
+      className="mx-auto max-w-6xl space-y-6"
       variants={stagger}
       initial="hidden"
       animate="show"

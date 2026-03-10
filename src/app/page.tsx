@@ -194,11 +194,7 @@ export default function LandingPage() {
 
       {/* -------- Header / Nav -------- */}
       <header className="absolute top-0 left-0 right-0 z-10 px-8 py-6">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between" aria-label="Main navigation">
-          <Link href="/" className="flex items-center gap-2 text-black">
-            <span className="text-2xl" aria-hidden="true">💰</span>
-            <span className="text-lg font-black">Ka Pai Pūtea</span>
-          </Link>
+        <nav className="mx-auto flex max-w-7xl items-center justify-end" aria-label="Main navigation">
           <div className="flex items-center gap-3">
             <Link href="/for-teachers" className="hidden sm:inline-block text-sm font-medium text-black/60 hover:text-black transition-colors">
               For Teachers
@@ -219,7 +215,7 @@ export default function LandingPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="relative overflow-hidden bg-yellow-300 text-black py-32 px-8"
+        className="relative overflow-hidden bg-yellow-300 text-black pt-20 pb-32 px-8"
       >
         <div className="max-w-7xl mx-auto">
           <motion.div

@@ -22,7 +22,7 @@ const CARD = "rounded-3xl border border-gray-200/60 bg-white shadow-sm";
 export function GamesClient() {
   return (
     <motion.div
-      className="mx-auto max-w-4xl space-y-6 pb-28"
+      className="mx-auto max-w-6xl space-y-6 pb-28"
       variants={stagger}
       initial="hidden"
       animate="show"
